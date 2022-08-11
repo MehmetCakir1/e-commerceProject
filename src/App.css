@@ -29,3 +29,107 @@
 .links a:hover{
     border-bottom: 2px solid #AB7A5F;
 }
+
+/**-------------------------HEADER---------------------------------------------------*/
+
+.img-container{
+    position: relative;
+    max-width: 558px;
+    min-height: 550px;
+}
+.img-container::before{
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 80%;
+    background: #DECBC0;
+    bottom: 0%;
+    left: 13%;
+    border-radius: 10px;
+   
+}
+.header-img1{
+    width: 440px;
+    height: 550px;
+    position: absolute;
+    top:0;
+    right: 0;
+}
+.header-img2{
+    width: 250px;
+    height: 165.25px;
+    position: absolute;
+    bottom:0;
+    left: 0;
+}
+.header-desc h1{
+    color: #102a42;
+    font-weight: 700;
+    font-size: 3rem;
+    line-height: 3rem;
+}
+.header-desc p{
+    color:#617d98;
+    line-height: 40px;
+    font-size: 20px;
+}
+.header-desc button{
+    background-color: #c5a491;
+}
+.header-desc button:hover{
+    background-color: #dab6a1;
+    color:#72472f !important;
+}
+
+/*SİLİNECEK*/
+.header-img3{
+    width: 250px;
+    height: 165.25px;
+   
+}
+
+/*-----------------------------CUSTOM---------------------------*/
+.custom{
+    background-color: #EADED7;
+}
+.card{
+    background-color: #C5A491;
+}
+.icon{
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+.custom h4{
+    font-size: 24px;
+    font-weight: 700;
+    color:#453227;
+}
+.customp{
+    color:#5f4435;
+    line-height: 28px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

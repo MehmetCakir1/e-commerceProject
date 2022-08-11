@@ -1,9 +1,11 @@
 import React from 'react'
 
-const MAin = () => {
+const Main = () => {
   return (
-    <div>MAin</div>
+    <div>
+      <img className='header-img3' src="images/header2.jpeg" alt="" />
+    </div>
   )
 }
 
-export default MAin
+export default Main
