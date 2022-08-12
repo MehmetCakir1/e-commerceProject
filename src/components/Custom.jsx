@@ -2,12 +2,13 @@ import { GiCompass,GiDiamondHard,GiScrollUnfurled } from "react-icons/gi";
 
 const Custom = () => {
   return (
-    <main className="p-5 custom">
-      <div className="d-flex justify-content-between align-items-center row">
-        <h3 className="col-lg-6">Custom Furniture <br /> Built Only For You</h3>
-        <p className="col-lg-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe dolorum debitis consectetur reprehenderit non aliquam voluptates dolore aut vero consequuntur.</p>
+    <main className="p-5 pb-0 pt-lg-0  custom">
+      <div className="custom-inner container ">
+      <div className="d-flex justify-content-between align-items-center row mb-md-2">
+        <h3 className="col-lg-6 h2">Custom Furniture <br /> Built Only For You</h3>
+        <p className="col-lg-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe dolorum debitis consectetur reprehenderit non aliquam voluptates dolore aut vero.</p>
       </div>
-      <div className="row">
+      <div className="row mt-md-1 card-div">
         <div className="col-md-6 col-lg-4 p-3">
           <div className="card text-center p-3">
           <span className="fs-1 bg-light icon m-auto ">
@@ -37,6 +38,8 @@ const Custom = () => {
         </div>
       
       </div>
+      </div>
+ 
     </main>
   )
 }
