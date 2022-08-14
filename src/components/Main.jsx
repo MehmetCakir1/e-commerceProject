@@ -20,7 +20,7 @@ const Main = () => {
           );
         })}
       </div>
-      <div className="text-center">  <button className="text-uppercase text-white py-1 px-3 border-0 rounded-2 mt-4" onClick={()=>navigate("/products")} >All Products</button></div>
+      <div className="text-center">  <button className="text-uppercase py-1 px-3 border-0 rounded-2 mt-4" onClick={()=>navigate("/products")} >All Products</button></div>
     </main>
   );
 };

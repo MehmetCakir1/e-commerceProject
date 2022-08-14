@@ -17,6 +17,8 @@
     right:-40%;
     background-color: #AB7A5F;
 }
+
+/*logo nun küçülmesi*/
 .logo{
     max-width: 175px;
 }
@@ -32,9 +34,6 @@
 
 /**-------------------------HEADER---------------------------------------------------*/
 
-
-/*before div'inin ekran daralınca kaybolması  */
-
 .img-container{
     position: relative;
     max-width: 558px;
@@ -43,16 +42,21 @@
 .img-container::before{
     content: "";
     position: absolute;
-    width: 50%;
+    width: 80%;
     height: 80%;
     background: #DECBC0;
     bottom: 0%;
     left: 13%;
     border-radius: 10px;
-   
+}
+:before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 .header-img1{
-    width: 440px;
+    width: 80%;
+    max-width: 440px;
     height: 550px;
     position: absolute;
     top:0;
@@ -98,9 +102,6 @@
 .custom{
     background-color: #EADED7;
 }
-/* .custom-inner{
-    max-width: 70rem;
-} */
 .card{
     background-color: #C5A491;
 }
@@ -212,22 +213,52 @@ footer span{
 
 .featured button{
     background-color: #AB7A5F;
-};
+    color: #fff;
+}
 
-/* --------btn hover kontrol*/
-
-
-/* .featured button:hover{
+.featured button:hover{
     background-color: #dab6a1 !important;
     color:#72472f !important;
-} */
-/* 
-.featured button:hover{
-    color: gray !important;
-    background-color: #88614c;
-  } */
-  
+}
 
+/*----------------------------------ABOUT----------------------------*/
+
+.about-header{
+    background-color:#EADED7!important;
+}
+
+.about-h1 span:first-child{
+    color:#795744 !important;
+    cursor: pointer;
+    font-weight: 700;
+}
+.about-h1 span:last-child{
+    color:#453227 !important;
+    font-weight: 700;
+}
+.about-img{
+    max-width: 550px;
+    height: 500px;
+}
+.about-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.about-content h1{
+    font-size: 40px;
+    line-height: 40px;
+    color: #102a42;
+    font-weight: 700;
+}
+.about-content p{
+    line-height: 2rem;
+    color: #617d98;
+}
+.about-underline{
+    border-bottom: 3px solid #AB7A5F;
+    width: 6rem;
+}
 
 
 
