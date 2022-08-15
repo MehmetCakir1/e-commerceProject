@@ -49,11 +49,6 @@
     left: 13%;
     border-radius: 10px;
 }
-:before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 .header-img1{
     width: 80%;
     max-width: 440px;
@@ -238,7 +233,7 @@ footer span{
 }
 .about-img{
     max-width: 550px;
-    height: 500px;
+    /* height: 500px; */
 }
 .about-img img{
     width: 100%;
@@ -259,6 +254,64 @@ footer span{
     border-bottom: 3px solid #AB7A5F;
     width: 6rem;
 }
+
+
+/*------------------------PRODUCTS------------------------------*/
+
+.products-header{
+    background-color:#EADED7!important;
+}
+
+.products-h1 span:first-child{
+    color:#795744 !important;
+    cursor: pointer;
+    font-weight: 700;
+}
+.products-h1 span:last-child{
+    color:#453227 !important;
+    font-weight: 700;
+}
+
+.upper-btnDiv{
+    max-width: 230px;
+}
+.single-imgDiv{
+    max-width: 299.34px;
+    height: 175px;
+    position: relative;
+}
+.single-imgDiv img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.single-zoom {
+    position: absolute;
+    left: 0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.single-zoom button{
+    background-color: #AB7A5F;
+    color: #fff;
+}
+
+.single-zoom button:hover{
+    background-color: #dab6a1 !important;
+    color:#72472f !important;
+}
+.single-card span:first-child{
+    color: #102a42;
+}
+.single-card span:last-child{
+    color: #AB7A5F;
+}
+
+
 
 
 
