@@ -8,7 +8,7 @@ const SingleProduct = ({product}) => {
     const navigate=useNavigate()
   return (
     <div key={id} className="col-md-6 col-lg-4 single-card mt-3">
-    <div>
+    <div className='single-card-bottom'>
       <div className="single-imgDiv" onMouseOver={()=>setZoom(true)} onMouseOut={()=>setZoom(false)}>
         <img src={image} alt={name} />
         {

@@ -1,15 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RiOrderPlayFill } from "react-icons/ri";
 import { FaBorderAll } from "react-icons/fa";
 import { ProductContext } from "../context/ProductContext";
 import SingleProduct from "../components/SingleProduct";
 
+import ColorBtn from "../components/ColorBtn";
+
 const Products = () => {
   const navigate = useNavigate();
   const {products}=useContext(ProductContext)
+  
 
-  console.log(products);
+  const categories= ["All",...new Set(products.map((item)=>item.category))]
+  const company=["All",...new Set(products.map((item)=>item.company))]
+  const tempColors=[]
+  // console.log([...new Set(products.map((item)=>item.category))])
+  products.map((item)=>item.colors.map((color2)=>tempColors.push(color2)))
+  // console.log(products);
+  const colors=[...new Set(tempColors)]
+  // console.log(colors);
   return (
     <div>
       <div className="products-header py-2 ">
@@ -18,8 +28,50 @@ const Products = () => {
           <span> / Products</span>
         </h1>
       </div>
-      <main className="container row m-auto mt-3 mt-md-5">
-        <div className="search col-2 bg-primary">jjjj</div>
+      <main className="container row m-auto mt-3 mt-md-5 p-0">
+        <div className="search col-2 p-0 m-0">
+          <form>
+          <input type="search" placeholder="Search"  className="px-1"/>
+          <ul className="category p-0 m-0">
+            <h6>Category</h6>
+            {
+              categories.map((item,index)=>{
+                return(
+                  <li key={index} className="text-capitalize list-unstyled">{item}</li>
+                )
+              })
+            }
+          </ul>
+          <h6>Company</h6>
+          <select name="company" id="company-select">
+            {
+              company.map((item,index)=>{
+                return(
+                  <option key={index} value={item} className="text-capitalize">{item}</option>
+                )
+              })
+            }
+          </select>
+          <h6>Colors</h6>
+          <button className="border-0 bg-transparent">All</button>
+          {
+            colors.map((item,index)=>{
+              return(
+                <ColorBtn key={index} item={item} index={index}/>
+              )
+            })
+          }
+          <h6>Price</h6>
+          <p className="price">$3,099.99</p>
+          <input type="range" name="price" min="0" max="30999" value="30999" onChange={null}/>
+          <div>
+             <label htmlFor="shipping">Free Shipping </label> 
+            <input type="checkbox" id="shipping" />
+          </div>
+          <input type="reset" value="Clear All" />
+          </form>
+        </div>
+
         <div className="main-products col-10 m-0">
           <div className="main-products-upper d-flex align-items-center justify-content-between row">
             <div className="upper-btnDiv col-4 d-flex align-items-center justify-content-between">
@@ -46,7 +98,7 @@ const Products = () => {
           </div>
           <div className="main-products-bottom row">
             {
-              products?.map((product)=>{
+              products?.map((product,index)=>{
                 return(
                   <SingleProduct key={product.id} product={product}/>
                 )

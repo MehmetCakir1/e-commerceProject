@@ -6,10 +6,9 @@ import { createContext } from 'react'
 
 
 let url="https://course-api.com/react-store-products"
-let singleUrl="https://course-api.com/react-store-single-product?id="
+
 
 export const ProductContext=createContext()
-
 
 
 const ProductContextProvider = ({children}) => {
@@ -33,7 +32,7 @@ const getProducts=async()=>{
     setLoading(false)
   }
 }
-// console.log(featured);
+
 
 useEffect(() => {
   getProducts()

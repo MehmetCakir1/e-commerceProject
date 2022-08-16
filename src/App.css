@@ -261,7 +261,6 @@ footer span{
 .products-header{
     background-color:#EADED7!important;
 }
-
 .products-h1 span:first-child{
     color:#795744 !important;
     cursor: pointer;
@@ -275,8 +274,12 @@ footer span{
 .upper-btnDiv{
     max-width: 230px;
 }
-.single-imgDiv{
+
+.single-card-bottom{
     max-width: 299.34px;
+}
+.single-imgDiv{
+    /* max-width: 299.34px; */
     height: 175px;
     position: relative;
 }
@@ -311,7 +314,51 @@ footer span{
     color: #AB7A5F;
 }
 
+/*---------------------products color buttons------------------------*/
 
+.active{
+    color: white !important;
+}
+
+
+/*-------------------------DETAILS--------------------------------*/
+
+.details-header{
+    background-color:#EADED7!important;
+}
+.details-h1 span:first-child{
+    color:#795744 !important;
+    cursor: pointer;
+    font-weight: 700;
+}
+.details-h1 span:nth-child(2){
+    color:#795744 !important;
+    cursor: pointer;
+    font-weight: 700;
+}
+.details-h1 span:last-child{
+    color:#453227 !important;
+    font-weight: 700;
+}
+
+.cartBtn{
+    background-color: #AB7A5F;
+    color: #fff;
+}
+
+.cartBtn:hover{
+    background-color: #dab6a1 !important;
+    color:#72472f !important;
+}
+.detail-backBtn{
+    background-color: #AB7A5F;
+    color: #fff;
+}
+
+.detail-backBtn:hover{
+    background-color: #dab6a1 !important;
+    color:#72472f !important;
+}
 
 
 
