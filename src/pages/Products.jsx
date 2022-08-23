@@ -4,13 +4,14 @@ import { RiOrderPlayFill } from "react-icons/ri";
 import { FaBorderAll } from "react-icons/fa";
 import { ProductContext } from "../context/ProductContext";
 import SingleProduct from "../components/SingleProduct";
-
 import ColorBtn from "../components/ColorBtn";
+
 
 const Products = () => {
   const navigate = useNavigate();
-  const {products}=useContext(ProductContext)
-  
+  const {products,maxPrice,costing}=useContext(ProductContext)
+  const [price,setPrice]=useState(maxPrice)
+
 
   const categories= ["All",...new Set(products.map((item)=>item.category))]
   const company=["All",...new Set(products.map((item)=>item.company))]
@@ -31,9 +32,9 @@ const Products = () => {
       <main className="container row m-auto mt-3 mt-md-5 p-0">
         <div className="search col-2 p-0 m-0">
           <form>
-          <input type="search" placeholder="Search"  className="px-1"/>
-          <ul className="category p-0 m-0">
-            <h6>Category</h6>
+            <input type="search" placeholder="Search"  className="px-1"/>
+          <ul className="category p-0 mt-3">
+            <h6 className="fw-bold">Category</h6>
             {
               categories.map((item,index)=>{
                 return(
@@ -42,7 +43,7 @@ const Products = () => {
               })
             }
           </ul>
-          <h6>Company</h6>
+          <h6 className="fw-bold">Company</h6>
           <select name="company" id="company-select">
             {
               company.map((item,index)=>{
@@ -52,7 +53,7 @@ const Products = () => {
               })
             }
           </select>
-          <h6>Colors</h6>
+          <h6 className="mt-3 fw-bold">Colors</h6>
           <button className="border-0 bg-transparent">All</button>
           {
             colors.map((item,index)=>{
@@ -61,17 +62,16 @@ const Products = () => {
               )
             })
           }
-          <h6>Price</h6>
-          <p className="price">$3,099.99</p>
-          <input type="range" name="price" min="0" max="30999" value="30999" onChange={null}/>
-          <div>
-             <label htmlFor="shipping">Free Shipping </label> 
+          <h6 className="mt-3 fw-bold">Price</h6>
+          <p className="price">${costing(price)}</p>
+          <input type="range" name="price" min="0" max={maxPrice} value={price} onChange={(e)=>setPrice(e.target.value)} style={{cursor:"pointer"}}/>
+          <div className="mt-3 fw-bold d-flex align-items-center">
+             <label htmlFor="shipping" className="me-5">Free Shipping </label> 
             <input type="checkbox" id="shipping" />
           </div>
-          <input type="reset" value="Clear All" />
-          </form>
+          <input type="reset" value="Clear All" className=" mt-2 bg-danger text-light fw-bold px-3 rounded-3 border-0" />
+            </form>
         </div>
-
         <div className="main-products col-10 m-0">
           <div className="main-products-upper d-flex align-items-center justify-content-between row">
             <div className="upper-btnDiv col-4 d-flex align-items-center justify-content-between">

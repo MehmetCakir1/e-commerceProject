@@ -314,6 +314,10 @@ footer span{
     color: #AB7A5F;
 }
 
+input[type="search"]{
+    width: 90%;
+}
+
 /*---------------------products color buttons------------------------*/
 
 .active{

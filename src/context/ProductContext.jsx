@@ -4,6 +4,7 @@ import axios from "axios"
 import { createContext } from 'react'
 
 
+const emptyArr=[]
 
 let url="https://course-api.com/react-store-products"
 
@@ -33,14 +34,23 @@ const getProducts=async()=>{
   }
 }
 
+const costing= (price) => {
+  return parseFloat(price).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+}
 
 useEffect(() => {
   getProducts()
 }, [])
 
 
+// console.log(products)
+products?.map((item)=>emptyArr.push(item.price))
+const maxPrice=Math.max(...emptyArr)
+// console.log(maxPrice);
+// console.log(...products.filter((item)=>item.price))
+
   return (
-    <ProductContext.Provider value={{featured,products}}>
+    <ProductContext.Provider value={{featured,products,costing,maxPrice}}>
       {children}
     </ProductContext.Provider>
   )
