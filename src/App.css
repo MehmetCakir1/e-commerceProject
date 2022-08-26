@@ -275,6 +275,9 @@ footer span{
     max-width: 230px;
 }
 
+.bottomLine{
+    max-width: 230px;
+}
 .single-card-bottom{
     max-width: 299.34px;
 }
@@ -318,10 +321,20 @@ input[type="search"]{
     width: 90%;
 }
 
+/*--------------------------filtering section----------------------*/
+/* .filteringDiv{
+    min-width: 180px !important;
+    background-color: rebeccapurple !important;
+}  */
+
 /*---------------------products color buttons------------------------*/
 
 .active{
     color: white !important;
+    opacity: 1 !important;
+}
+.color-btn{
+    opacity: 0.6;
 }
 
 
@@ -363,11 +376,94 @@ input[type="search"]{
     background-color: #dab6a1 !important;
     color:#72472f !important;
 }
+.single-detail-desc{
+    color: #102a42 !important;
+    line-height: 25px;
+}
+.single-detail-title{
+    color: #102a42 !important;
+}
+.single-detail-price{
+    color:#72472f !important;
+}
+.single-detail-review{
+    color: #102a42 !important;
+}
+
+.single-detail-available{
+    color: #102a42 !important;
+    display: inline-block;
+    width: 5rem !important;
+}
+.single-detail-color{
+    color: #102a42 !important;
+    display: inline-block;
+    width: 5rem !important;
+}
+.single-detail-available + span{
+    color: #102a42 !important;
+}
+.details-imgDiv{
+    display:grid ;
+    height: 550px;
+    grid-template-rows: 7fr 1fr;
+    padding: 1rem;
+}
+
+.detail-big-img{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+.detail-big-img img{
+    width: 100%;
+    height: 95%;
+}
+.detail-small-img{
+    display: grid;
+    grid-template-columns: repeat(5,20%);
+}
+.detail-small-img img{
+    width: 98%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.detail-small-img img:hover{
+    border: 2px solid #AB7A5F;
+    opacity: 0.7;;
+}
 
 
 
 
+/*--------------------------SINGLE PRODUCT WIDE ----------------------*/
 
+.single-wide-title{
+    color: #102a42 !important;
+}
+.single-wide-price{
+    color:#72472f !important;
+}
+.single-wide-btn{
+    background-color: #AB7A5F;
+}
+
+/*----------------------------------------MEDIA QUERY-----------------------*/
+
+@media(max-width:768px){
+    .single-card{
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+    }
+    .upper-btnDiv,.sortDiv{
+        font-size: 14px;
+    }
+    .single-imgDiv img{
+        width: 299.34px;
+    }
+}
 
 
 
