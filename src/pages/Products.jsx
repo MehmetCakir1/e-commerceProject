@@ -1,24 +1,81 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { RiOrderPlayFill } from "react-icons/ri";
-import { FaBorderAll } from "react-icons/fa";
+import { BsList } from "react-icons/bs";
+import {  BiGridSmall} from "react-icons/bi";
 import { ProductContext } from "../context/ProductContext";
 import SingleProduct from "../components/SingleProduct";
-import ColorBtn from "../components/ColorBtn";
+import { TiTick } from "react-icons/ti";
+
+const _ = require('underscore');//! UNDERSCORE********** _.intersection([][][])
 
 
 const Products = () => {
   const navigate = useNavigate();
-  const {products,maxPrice,costing,displayStyle, setDisplayStyle}=useContext(ProductContext)
-  const [price,setPrice]=useState(maxPrice)
+  const {products,setProducts,costing,displayStyle, setDisplayStyle}=useContext(ProductContext)
+  const [newProducts,setNewProducts]=useState(products)
+  // let highestPrice = []
+  // products?.map((item)=>highestPrice.push(item.price))
+  // const defaultPrice = Math.max(...highestPrice)
+  let defaultPrice=309999
+  const [price,setPrice]=useState(defaultPrice)
+  const [category,setCategory]=useState("all")
+  const [company,setCompany]=useState("all")
+  const [newColor,setNewColor]=useState("all")
+  const [tickColor,setTickColor]=useState("all")
+
+
   const categories= ["All",...new Set(products.map((item)=>item.category))]
-  const company=["All",...new Set(products.map((item)=>item.company))]
+  const companyList=["All",...new Set(products.map((item)=>item.company))]
   const tempColors=[]
   // console.log([...new Set(products.map((item)=>item.category))])
   products.map((item)=>item.colors.map((color2)=>tempColors.push(color2)))
   // console.log(products);
   const colors=[...new Set(tempColors)]
   // console.log(colors);
+
+  useEffect(() => {
+    // console.log("test");
+    filterItems();
+  }, [category, company,price,newColor]);
+
+const filterItems = ()=>{
+  let tempCategory;
+  let tempCompany;
+  let tempColor;
+  let tempPrice;
+
+  if (category === "all" && company === "all") {
+    setNewProducts(products);
+  } else{
+
+    if(category !== "all"){
+      tempCategory = products?.filter((item) => item.category === category)
+    }else{
+      tempCategory= products
+    }
+    if(company !== "all"){
+      tempCompany = products?.filter((item)=>item.company === company)
+    }else{
+      tempCompany = products
+    }
+    if(newColor !== "all"){
+      tempColor = products?.filter((item)=>item.colors.includes(newColor))
+      console.log("merhaba color");
+    }else{
+      tempColor = products
+    }
+    if(price !== defaultPrice){
+      tempPrice = products?.filter((item)=>item.price < price)
+      console.log("price")
+    }else{
+      tempPrice = products
+    }
+    // const _ = require('underscore')
+    // console.log(_.intersection(tempCategory, tempCompany, tempColor, tempPrice));
+    setNewProducts(_.intersection(tempCategory, tempCompany,tempPrice,tempColor))
+  }
+}
+
   return (
     <div>
       <div className="products-header py-2 ">
@@ -28,60 +85,82 @@ const Products = () => {
         </h1>
       </div>
       <main className="container row m-auto mt-3 mt-md-5 p-0">
-        <div className="filteringDiv col-sm-3 col-md-2 p-0 m-0">
+        <div className="filteringDiv col-sm-4 col-md-3 p-0 m-0">
           <form>
             <input type="search" placeholder="Search"  className="px-1"/>
           <ul className="category p-0 mt-3">
+
+          {/* ----------------CATEGORY----------------- */}
+
             <h6 className="fw-bold">Category</h6>
             {
               categories.map((item,index)=>{
                 return(
-                  <li key={index} className="text-capitalize list-unstyled">{item}</li>
+                  <li key={index} className="text-capitalize list-unstyled" onClick={(e)=>setCategory(e.target.innerText.toLowerCase())} >{item}</li>
                 )
               })
             }
           </ul>
+          {/* -------------------COMPANY------------------------- */}
+
           <h6 className="fw-bold">Company</h6>
-          <select name="company" id="company-select">
+          <select name="company" id="company-select" onChange={(e)=>setCompany(e.target.value.toLowerCase())}>
             {
-              company.map((item,index)=>{
+              companyList.map((item,index)=>{
                 return(
-                  <option key={index} value={item} className="text-capitalize">{item}</option>
+                  <option key={index} value={item} className="text-capitalize" >{item}</option>
                 )
               })
             }
           </select>
+
+        {/* --------------------COLORS------------------ */}
+
           <h6 className="mt-3 fw-bold">Colors</h6>
-          <button className="border-0 bg-transparent">All</button>
-          {
-            colors.map((item,index)=>{
-              return(
-                <ColorBtn key={index} item={item} index={index}/>
-              )
-            })
-          }
+          <div className="d-flex">
+            <span style={{cursor:"pointer"}} className="border-0 bg-transparent" onClick={()=>{setNewColor("all"); setTickColor(false)}}>All</span>
+               {colors.map((item, tickIndex) => {
+              return (
+                <span style={{backgroundColor:item}} key={tickIndex} className="rounded-circle border-0 mx-1 color-btn" onClick={()=>{setTickColor(tickIndex); setNewColor(item)}}>
+                  {tickColor === tickIndex ? <TiTick className='text-white m-1 fs-5'/> : <TiTick className='product-default-color m-1 fs-5'/>}
+                </span>
+              );
+            })}
+            </div>
+
+            {/*-------------------- PRICE----------------------- */}
           <h6 className="mt-3 fw-bold">Price</h6>
           <p className="price">${costing(price)}</p>
-          <input type="range" name="price" min="0" max={maxPrice} value={price} onChange={(e)=>setPrice(e.target.value)} style={{cursor:"pointer"}}/>
+          <input type="range" name="price" min="0" max={defaultPrice} value={price} onChange={(e)=>setPrice(e.target.value)} style={{cursor:"pointer"}}/>
+
+            {/*---------------- FREE SHIPPING---------------- */}
+
           <div className="mt-3 fw-bold d-flex align-items-center">
              <label htmlFor="shipping" className="me-5">Free Shipping </label> 
             <input type="checkbox" id="shipping" />
           </div>
+
+            {/*--------------------- CLEAR -----------------*/}
+
           <input type="reset" value="Clear All" className=" mt-4 bg-danger text-light fw-bold px-4 py-1 rounded-3 border-0" />
             </form>
         </div>
-        <div className="main-products col-sm-9 col-md-10 m-0 mt-3 mt-sm-0">
+
+        {/* ---------------------MAIN PART -----------------------*/}
+
+
+        <div className="main-products col-sm-8 col-md-9 m-0 mt-3 mt-sm-0">
           <div className="main-products-upper d-flex align-items-sm-center  justify-content-sm-center justify-content-md-between flex-column flex-sm-row row p-0 m-0 ">
             <div className="upper-btnDiv col-sm-6 col-lg-4 d-flex align-items-sm-center justify-content-start justify-content-sm-between flex-column flex-sm-row p-0 m-0">
               <div className="products-btnDiv d-flex align-items-center gap-1 p-0 m-0">
-                 <button className="d-flex align-items-center border-0 bg-transparent fs-4" onClick={()=>setDisplayStyle(true)}>
-                <FaBorderAll />{" "}
+                 <button className= {`${displayStyle && "text-light bg-dark"} d-flex align-items-center border-1 rounded-1 fs-4`} onClick={()=>setDisplayStyle(true)}>
+                <BiGridSmall />{" "}
               </button>
-              <button className="d-flex align-items-center border-0 bg-transparent fs-4" onClick={()=>setDisplayStyle(false)}>
-                <RiOrderPlayFill />{" "}
+              <button className={`${!displayStyle && "text-light bg-dark"} d-flex align-items-center border-1 rounded-1 fs-4`} onClick={()=>setDisplayStyle(false)}>
+                <BsList />{" "}
               </button>
               </div>
-              <span>23 Products Found</span>
+              <span>{newProducts.length} Products Found</span>
             </div>
             <div className="line-through border border-1 border-bottom border-dark col-5 bottomLine d-none d-lg-block"></div>
             <div className="col-sm-6 col-lg-3 sortDiv d-flex justify-content-sm-end p-0 m-0 ">
@@ -96,7 +175,7 @@ const Products = () => {
           </div>
           <div className="main-products-bottom row m-auto">
             {
-              products?.map((product,index)=>{
+              newProducts?.map((product,index)=>{
                 return(
                   <SingleProduct key={product.id} product={product} displayStyle={displayStyle}/>
                 )

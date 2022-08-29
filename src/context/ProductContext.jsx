@@ -4,7 +4,6 @@ import axios from "axios"
 import { createContext } from 'react'
 
 
-const emptyArr=[]
 
 let url="https://course-api.com/react-store-products"
 
@@ -28,7 +27,7 @@ const getProducts=async()=>{
     setProducts(data)
     setFeatured(data.filter((item)=>item.hasOwnProperty("featured")))
     setLoading(false)
-  }
+    }
   catch(err){
     console.log(err)
     setLoading(false)
@@ -44,9 +43,17 @@ useEffect(() => {
 }, [])
 
 
+// useEffect(() => {
+//   products?.map((item)=>emptyArr.push(item.price))
+// const tempPrice=Math.max(...emptyArr)
+//   setMaxPrice(tempPrice)
+// }, [])
+
 
 const increase=()=>{
-  setAmount(amount+1)
+  if(amount<10){
+    setAmount(amount+1)
+  }
 }
 const decrease = ()=>{
   if(amount>1){
@@ -54,14 +61,8 @@ const decrease = ()=>{
   }
 }
 
-// console.log(products)
-products?.map((item)=>emptyArr.push(item.price))
-const maxPrice=Math.max(...emptyArr)
-// console.log(maxPrice);
-// console.log(...products.filter((item)=>item.price))
-
   return (
-    <ProductContext.Provider value={{featured,products,costing,maxPrice,displayStyle,setDisplayStyle,increase,decrease,amount}}>
+    <ProductContext.Provider value={{featured,products,costing,displayStyle,setDisplayStyle,increase,decrease,amount}}>
       {children}
     </ProductContext.Provider>
   )
