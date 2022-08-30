@@ -12,15 +12,17 @@ const Details = () => {
   const { id } = useParams();
   const [detail, setDetail] = useState([]);
   const [imgIndex,setImgIndex]=useState(0)
-  const [cartProducts,setCartProducts]=useState({
+  const [cartProducts,setCartProducts]=useState([{
     image:"",
     name:"",
     color:"",
     price:"",
     quantity:"",
     id:""
-  })
+  }])
   const {decrease,increase,amount}=useContext(ProductContext)
+
+  // console.log(cartProducts)
 
   let singleUrl = `https://course-api.com/react-store-single-product?id=${id}`;
 
@@ -45,10 +47,17 @@ const Details = () => {
   const newImageList=images?.map((item)=>item.thumbnails.large.url)
   // console.log(newImageList)
   
-
-// const addToCart= ()=>{
-//   setCartProducts([...cartProducts,image:images,])
-// }
+// console.log(name);
+const addToCart= ()=>{
+  setCartProducts(...cartProducts,
+  {image:newImageList[0],
+  name:name,
+  // color:"",
+  price:price,
+  quantity:amount,
+  id:id})
+  // conole.log(cartProducts);
+}
   return (
     <div>
       <div className="details-header py-2 ">
@@ -124,7 +133,7 @@ const Details = () => {
             <h2 className="m-0 mx-1 fw-bold">{amount}</h2>
             <button className="bg-transparent border-0 fs-4 ms-2 my-2" onClick={()=>increase()}><FaPlus/></button>
           </div>
-          <button onClick={()=>navigate("/cart",{state:detail})} className="cartBtn border-0 p-2 rounded-2 my-3">ADD TO CART</button>
+          <button onClick={()=>{addToCart();navigate("/cart",{state:detail})}} className="cartBtn border-0 p-2 rounded-2 my-3">ADD TO CART</button>
         </div>
       </div>
     </div>

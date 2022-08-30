@@ -529,6 +529,17 @@ input[type="search"]{
     background-color: #dab6a1;
     color:#72472f !important;
 }
+
+
+/*----------------------LOGIN FORM-----------------------*/
+
+
+.login-form{
+    max-width: 30rem;
+    box-shadow: 0 5px 5px grey;
+    background-color: rgb(220, 221, 235);
+}
+
 /*----------------------------------------MEDIA QUERY-----------------------*/
 @media(max-width:420px){
     .detail-big-img img{

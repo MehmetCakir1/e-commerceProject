@@ -10,11 +10,15 @@ const Cart = () => {
   const {decrease,increase,amount,costing}=useContext(ProductContext)
   const [subtotal,setSubtotal]=useState(0)
 
+  const { name, price,  company,colors ,images} = state;
+  // console.log(state.name)
+  // console.log(cartProducts)
+
   useEffect(() => {
     setSubtotal(amount*price)
   }, [amount])
   
-  const { name, price,  company,colors ,images} = state;
+  
 
   const cartImageList=images?.map((item)=>item.thumbnails.large.url)
 
