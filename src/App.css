@@ -168,6 +168,16 @@ footer span{
     color:#AB7A5F;
 }
 
+/*---------------LOADING---------------*/
+
+.loading{
+    height: 100vh;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+
+}
+
 
 /*---------------------------MAIN-----------------------------------------*/
 .featured{
@@ -440,6 +450,85 @@ input[type="search"]{
     background-color: #AB7A5F;
 }
 
+
+
+/*--------------------------CART------------------------*/
+
+.cart-header{
+    background-color:#EADED7!important;
+}
+.cart-h1 span:first-child{
+    color:#795744 !important;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.cart-h1 span:nth-child(2){
+    color:#795744 !important;
+    cursor: pointer;
+    font-weight: 700;
+}
+.cart-h1 span:last-child{
+    color:#453227 !important;
+    font-weight: 700;
+}
+.cart-main-part{
+    display: grid;
+    grid-template-columns: 35% 20% 15% 20% 10%;
+}
+.cart-img{
+    width: 150px;
+    height: 120px;
+}
+.cart-img img{
+    width: 100%;
+    height: 100%;
+}
+.item-part-middle,.price-part-middle,.quantity-part-middle,.subtotal-part-middle,.delete-part-middle{
+    height: 168px;
+}
+.price-part-middle{
+    color:#795744 !important;
+}
+.trash-icon{
+    cursor: pointer;
+}
+.cart-continue-btn{
+    background-color: #AB7A5F;
+    color: #fff;
+}
+.cart-continue-btn:hover{
+    background-color: #dab6a1;
+    color:#72472f !important;
+}
+.cart-clear-btn{
+    background-color: #222;
+    color: #fff;
+}
+.cart-clear-btn:hover{
+    background-color: rgb(75, 73, 73);
+    color: #fff;
+}
+.total-order{
+    color: #102a42 !important;
+    border: 1px solid rgba(73, 72, 72, 0.4);
+}
+.fee-div{
+    color: #102a42 !important;
+    border-bottom: 1px solid rgba(73, 72, 72, 0.4);
+}
+.total-order span:first-child{
+    width: 12rem !important;
+    display: inline-block !important;
+}
+.cart-login-btn{
+    background-color: #AB7A5F;
+    color: #fff;
+}
+.cart-login-btn:hover{
+    background-color: #dab6a1;
+    color:#72472f !important;
+}
 /*----------------------------------------MEDIA QUERY-----------------------*/
 @media(max-width:420px){
     .detail-big-img img{

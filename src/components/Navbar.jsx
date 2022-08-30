@@ -16,7 +16,7 @@ const Navbar = () => {
         <Link className="text-dark text-decoration-none" to="/products">Products</Link>
       </div>
       <div className="d-flex justify-content-between align-items-center">
-        <Link to="cart" className="text-dark text-decoration-none">
+        <Link to="/cart" className="text-dark text-decoration-none">
         <div className="cart d-flex justify-content-between align-items-center px-2 mx-1">
           <p className="fs-4 p-0 m-0">Cart</p>
           <span className="fs-3 shoppingCart d-flex align-items-center justify-content-center mx-1"><FaShoppingCart/>

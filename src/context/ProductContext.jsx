@@ -19,6 +19,8 @@ const [loading,setLoading]=useState(false)
 const [displayStyle,setDisplayStyle]=useState(true)
 const [amount,setAmount]=useState(1)
 
+
+
 const getProducts=async()=>{
   setLoading(true);
   try{
@@ -43,12 +45,6 @@ useEffect(() => {
 }, [])
 
 
-// useEffect(() => {
-//   products?.map((item)=>emptyArr.push(item.price))
-// const tempPrice=Math.max(...emptyArr)
-//   setMaxPrice(tempPrice)
-// }, [])
-
 
 const increase=()=>{
   if(amount<10){
@@ -62,7 +58,7 @@ const decrease = ()=>{
 }
 
   return (
-    <ProductContext.Provider value={{featured,products,costing,displayStyle,setDisplayStyle,increase,decrease,amount}}>
+    <ProductContext.Provider value={{featured,products,costing,displayStyle,setDisplayStyle,increase,decrease,amount,loading}}>
       {children}
     </ProductContext.Provider>
   )

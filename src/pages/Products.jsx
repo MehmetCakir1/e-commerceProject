@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BsList } from "react-icons/bs";
 import {  BiGridSmall} from "react-icons/bi";
@@ -11,17 +11,22 @@ const _ = require('underscore');//! UNDERSCORE********** _.intersection([][][])
 
 const Products = () => {
   const navigate = useNavigate();
-  const {products,setProducts,costing,displayStyle, setDisplayStyle}=useContext(ProductContext)
+  const {products,costing,displayStyle, setDisplayStyle,loading}=useContext(ProductContext)
   const [newProducts,setNewProducts]=useState(products)
-  // let highestPrice = []
-  // products?.map((item)=>highestPrice.push(item.price))
-  // const defaultPrice = Math.max(...highestPrice)
-  let defaultPrice=309999
+  let highestPrice = []
+  products?.map((item)=>highestPrice.push(item.price))
+  const defaultPrice = Math.max(...highestPrice)
+  // let defaultPrice=309999
   const [price,setPrice]=useState(defaultPrice)
   const [category,setCategory]=useState("all")
   const [company,setCompany]=useState("all")
   const [newColor,setNewColor]=useState("all")
   const [tickColor,setTickColor]=useState("all")
+  const [sortedProduct, setSortedProduct] = useState("Price(Lowest)")
+  const [checked,setChecked]=useState(false)
+  // const [searchTerm,setSearchTerm]=useState("")
+  
+
 
 
   const categories= ["All",...new Set(products.map((item)=>item.category))]
@@ -33,18 +38,36 @@ const Products = () => {
   const colors=[...new Set(tempColors)]
   // console.log(colors);
 
+  useEffect(()=>{
+    if(!loading){
+setNewProducts(products)
+    }
+  },[loading])
+
   useEffect(() => {
-    // console.log("test");
     filterItems();
-  }, [category, company,price,newColor]);
+  },[category, company,price,newColor,checked]);
+  
+  
+  useEffect(() => {
+  sortProducts()
+  }, [sortedProduct]);
+  
+  useEffect(() => {
+  sortProducts()
+  }, [sortedProduct]);
+  
+
 
 const filterItems = ()=>{
   let tempCategory;
   let tempCompany;
   let tempColor;
   let tempPrice;
+  let tempChecked;
 
-  if (category === "all" && company === "all") {
+  
+  if (category === "all" && company === "all" && newColor=== "all" && price==defaultPrice && checked===false) {
     setNewProducts(products);
   } else{
 
@@ -60,23 +83,63 @@ const filterItems = ()=>{
     }
     if(newColor !== "all"){
       tempColor = products?.filter((item)=>item.colors.includes(newColor))
-      console.log("merhaba color");
     }else{
       tempColor = products
     }
     if(price !== defaultPrice){
       tempPrice = products?.filter((item)=>item.price < price)
-      console.log("price")
     }else{
       tempPrice = products
     }
-    // const _ = require('underscore')
-    // console.log(_.intersection(tempCategory, tempCompany, tempColor, tempPrice));
-    setNewProducts(_.intersection(tempCategory, tempCompany,tempPrice,tempColor))
+    if(checked===true){
+      tempChecked=products?.filter((item)=>item.hasOwnProperty("shipping"))
+    }else{
+      tempChecked = products
+    }
+    setNewProducts(_.intersection(tempCategory, tempCompany,tempPrice,tempColor,tempChecked))
   }
 }
 
-  return (
+const sortProducts = () => {
+  let empty = []
+// console.log(sortedProduct);
+if (sortedProduct === "Price(Lowest)"){
+  const newStatus = empty.concat(newProducts)
+setNewProducts(newStatus?.sort((a,b)=>a.price - b.price))
+empty = []
+}
+if (sortedProduct === "Price(Highest)"){
+  const newStatus = empty.concat(newProducts)
+setNewProducts(newStatus?.sort((a,b)=>b.price - a.price))
+empty = []
+}
+if (sortedProduct === "Name(A-Z)"){
+  const newStatus = empty.concat(newProducts)
+setNewProducts(_.sortBy(newStatus, 'name'))
+empty = []
+}
+if (sortedProduct === "Name(Z-A)"){
+  const newStatus = empty.concat(newProducts)
+setNewProducts(_.sortBy(newStatus, 'name').reverse())
+empty = []
+}
+  }
+
+const clearAll=()=>{
+  setCategory("all")
+  setCompany("all")
+  setNewColor("all")
+  setTickColor(false)
+  setPrice(defaultPrice)
+  setChecked(false)
+}
+
+
+
+  if(loading){
+    return <h1 className="loading">LOADING...</h1>
+  }else{
+     return (
     <div>
       <div className="products-header py-2 ">
         <h1 className="products-h1 p-3 container">
@@ -87,6 +150,9 @@ const filterItems = ()=>{
       <main className="container row m-auto mt-3 mt-md-5 p-0">
         <div className="filteringDiv col-sm-4 col-md-3 p-0 m-0">
           <form>
+
+            {/*--------------------------- SEARCH INPUT------------- */}
+
             <input type="search" placeholder="Search"  className="px-1"/>
           <ul className="category p-0 mt-3">
 
@@ -129,20 +195,23 @@ const filterItems = ()=>{
             </div>
 
             {/*-------------------- PRICE----------------------- */}
+
           <h6 className="mt-3 fw-bold">Price</h6>
           <p className="price">${costing(price)}</p>
-          <input type="range" name="price" min="0" max={defaultPrice} value={price} onChange={(e)=>setPrice(e.target.value)} style={{cursor:"pointer"}}/>
+          <input type="range" name="price" min="0" max={Math.max(...highestPrice)} value={price} onChange={(e)=>setPrice(e.target.value)} style={{cursor:"pointer"}}/>
 
             {/*---------------- FREE SHIPPING---------------- */}
 
           <div className="mt-3 fw-bold d-flex align-items-center">
              <label htmlFor="shipping" className="me-5">Free Shipping </label> 
-            <input type="checkbox" id="shipping" />
+            <input type="checkbox" id="shipping" onClick={()=>setChecked(!checked)} />
           </div>
 
             {/*--------------------- CLEAR -----------------*/}
 
-          <input type="reset" value="Clear All" className=" mt-4 bg-danger text-light fw-bold px-4 py-1 rounded-3 border-0" />
+          <input type="reset" value="Clear All" className=" mt-4 bg-danger text-light fw-bold px-4 py-1 rounded-3 border-0" 
+          onClick={clearAll}
+          />
             </form>
         </div>
 
@@ -165,8 +234,11 @@ const filterItems = ()=>{
             <div className="line-through border border-1 border-bottom border-dark col-5 bottomLine d-none d-lg-block"></div>
             <div className="col-sm-6 col-lg-3 sortDiv d-flex justify-content-sm-end p-0 m-0 ">
               <span className="me-2">Sort By</span>
-              <select name="select" id="select" className="border-0 bg-transparent" >
-                <option value="Price(Lowest)">Price(Lowest)</option>
+
+              {/* -----------------------SORTING PRODUCTS-------------- */}
+
+              <select name="select" id="select" className="border-0 bg-transparent" style={{cursor:"pointer"}} onChange={(e)=>setSortedProduct(e.target.value)}>
+               <option value="Price(Lowest)">Price(Lowest)</option>
                 <option value="Price(Highest)">Price(Highest)</option>
                 <option value="Name(A-Z)">Name(A-Z)</option>
                 <option value="Name(Z-A)">Name(Z-A)</option>
@@ -186,6 +258,9 @@ const filterItems = ()=>{
       </main>
     </div>
   );
+  }
+
+ 
 };
 
 export default Products;
