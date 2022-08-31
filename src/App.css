@@ -31,6 +31,23 @@
 .links a:hover{
     border-bottom: 2px solid #AB7A5F;
 }
+.hamburger-menu{
+    color:#AB7A5F;
+}
+
+.main-sidebar-div{
+    background-color: white;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 100;
+    width: 100vw;
+    height: 1000px;
+}
+
+.sidebar-links span{
+cursor: pointer;}
+
 
 /**-------------------------HEADER---------------------------------------------------*/
 
@@ -550,7 +567,7 @@ input[type="search"]{
         height: 50px;
     }
 }
-@media(max-width:768px){
+@media(max-width:767px){
     .single-card{
         display: flex !important;
         justify-content: center;

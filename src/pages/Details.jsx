@@ -12,6 +12,7 @@ const Details = () => {
   const { id } = useParams();
   const [detail, setDetail] = useState([]);
   const [imgIndex,setImgIndex]=useState(0)
+  const [amount,setAmount]=useState(1)
   const [cartProducts,setCartProducts]=useState([{
     image:"",
     name:"",
@@ -20,7 +21,6 @@ const Details = () => {
     quantity:"",
     id:""
   }])
-  const {decrease,increase,amount}=useContext(ProductContext)
 
   // console.log(cartProducts)
 
@@ -58,6 +58,19 @@ const addToCart= ()=>{
   id:id})
   // conole.log(cartProducts);
 }
+
+const increase=()=>{
+  if(amount<10){
+    setAmount(amount+1)
+  }
+}
+const decrease = ()=>{
+  if(amount>1){
+    setAmount(amount-1)
+  }
+}
+
+
   return (
     <div>
       <div className="details-header py-2 ">
@@ -73,7 +86,7 @@ const addToCart= ()=>{
         </div>
         <div className="details-imgDiv col-lg-6">
           <div className="detail-big-img mb-3">
-           <img src={newImageList && newImageList[imgIndex]} alt="image1" className="rounded-3"/>
+          <img src={newImageList && newImageList[imgIndex]} alt="image1" className="rounded-3"/>
           </div>
           <div className="detail-small-img d-flex justify-content-between align-items-center">
               {newImageList?.map((url,index)=>{
@@ -133,7 +146,7 @@ const addToCart= ()=>{
             <h2 className="m-0 mx-1 fw-bold">{amount}</h2>
             <button className="bg-transparent border-0 fs-4 ms-2 my-2" onClick={()=>increase()}><FaPlus/></button>
           </div>
-          <button onClick={()=>{addToCart();navigate("/cart",{state:detail})}} className="cartBtn border-0 p-2 rounded-2 my-3">ADD TO CART</button>
+          <button onClick={()=>{addToCart();navigate("/cart",{state:{detail:detail,amount:amount}})}} className="cartBtn border-0 p-2 rounded-2 my-3">ADD TO CART</button>
         </div>
       </div>
     </div>

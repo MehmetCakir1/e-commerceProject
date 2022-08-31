@@ -13,11 +13,10 @@ const Products = () => {
   const navigate = useNavigate();
   const {products,costing,displayStyle, setDisplayStyle,loading}=useContext(ProductContext)
   const [newProducts,setNewProducts]=useState(products)
-  let highestPrice = []
-  products?.map((item)=>highestPrice.push(item.price))
+  let highestPrice=products?.map((item)=>(item.price))
   const defaultPrice = Math.max(...highestPrice)
   // let defaultPrice=309999
-  const [price,setPrice]=useState(defaultPrice)
+  const [price,setPrice]=useState(defaultPrice || 30999)
   const [category,setCategory]=useState("all")
   const [company,setCompany]=useState("all")
   const [newColor,setNewColor]=useState("all")
@@ -41,8 +40,10 @@ const Products = () => {
   useEffect(()=>{
     if(!loading){
 setNewProducts(products)
+// console.log(products);
+// console.log("first")
     }
-  },[loading])
+  },[])
 
   useEffect(() => {
     filterItems();
@@ -67,7 +68,7 @@ const filterItems = ()=>{
   let tempChecked;
 
   
-  if (category === "all" && company === "all" && newColor=== "all" && price==defaultPrice && checked===false) {
+  if (category === "all" && company === "all" && newColor=== "all" && price==defaultPrice  && checked===false) {
     setNewProducts(products);
   } else{
 
@@ -135,7 +136,6 @@ const clearAll=()=>{
 }
 
 
-
   if(loading){
     return <h1 className="loading">LOADING...</h1>
   }else{
@@ -198,7 +198,7 @@ const clearAll=()=>{
 
           <h6 className="mt-3 fw-bold">Price</h6>
           <p className="price">${costing(price)}</p>
-          <input type="range" name="price" min="0" max={Math.max(...highestPrice)} value={price} onChange={(e)=>setPrice(e.target.value)} style={{cursor:"pointer"}}/>
+          <input type="range" name="price" min="0" max={defaultPrice} value={price} onChange={(e)=>setPrice(e.target.value)} style={{cursor:"pointer"}}/>
 
             {/*---------------- FREE SHIPPING---------------- */}
 

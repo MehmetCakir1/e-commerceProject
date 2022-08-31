@@ -1,21 +1,27 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaShoppingCart,FaUserPlus} from "react-icons/fa";
+import { FaShoppingCart,FaUserPlus,FaBars} from "react-icons/fa";
+import Sidebar from "./Sidebar";
+import { ProductContext } from "../context/ProductContext";
 
 const Navbar = () => {
+ const {showSidebar,setShowSidebar}=useContext(ProductContext)
+
   return (
+    <div>
     <nav className="container d-flex justify-content-between align-items-center py-3">
       <div className="logo ">
         <Link to="/">
           <img src="images/logo.svg" alt="logo" />
         </Link>
       </div>
-      <div className="links d-flex gap-5 fs-5 ">
+      <button className="d-flex align-items-center d-md-none border-0 bg-transparent fs-1 hamburger-menu" onClick={()=>setShowSidebar(true)}><FaBars/></button>
+      <div className="links d-md-flex gap-5 fs-5 d-none ">
         <Link className="text-dark text-decoration-none" to="/">Home</Link>
         <Link className="text-dark text-decoration-none" to="/about">About</Link>
         <Link className="text-dark text-decoration-none" to="/products">Products</Link>
       </div>
-      <div className="d-flex justify-content-between align-items-center">
+      <div className="d-none d-md-flex justify-content-between align-items-center">
         <Link to="/cart" className="text-dark text-decoration-none">
         <div className="cart d-flex justify-content-between align-items-center px-2 mx-1">
           <p className="fs-4 p-0 m-0">Cart</p>
@@ -29,9 +35,12 @@ const Navbar = () => {
           <p className="fs-4 p-0 m-0">Login</p>
           <span className="fs-3 d-flex align-items-center justify-content-center mx-1"><FaUserPlus/></span>
         </div></Link>
-       
       </div>
     </nav>
+    {
+      showSidebar && <Sidebar/>
+    }
+      </div>
   );
 };
 

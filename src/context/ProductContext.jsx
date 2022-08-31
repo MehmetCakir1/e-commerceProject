@@ -17,7 +17,9 @@ const [featured,setFeatured]=useState([])
 const [products,setProducts]=useState([])
 const [loading,setLoading]=useState(false)
 const [displayStyle,setDisplayStyle]=useState(true)
-const [amount,setAmount]=useState(1)
+const [showSidebar,setShowSidebar]=useState(false)
+
+
 
 
 
@@ -43,22 +45,10 @@ const costing= (price) => {
 useEffect(() => {
   getProducts()
 }, [])
-
-
-
-const increase=()=>{
-  if(amount<10){
-    setAmount(amount+1)
-  }
-}
-const decrease = ()=>{
-  if(amount>1){
-    setAmount(amount-1)
-  }
-}
+// console.log(products);
 
   return (
-    <ProductContext.Provider value={{featured,products,costing,displayStyle,setDisplayStyle,increase,decrease,amount,loading}}>
+    <ProductContext.Provider value={{featured,products,costing,displayStyle,setDisplayStyle,loading,setShowSidebar,showSidebar}}>
       {children}
     </ProductContext.Provider>
   )

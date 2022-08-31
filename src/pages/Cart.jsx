@@ -7,10 +7,12 @@ import { FaMinus,FaPlus,FaTrashAlt} from "react-icons/fa";
 const Cart = () => {
   const navigate = useNavigate();
   const {state}=useLocation()
-  const {decrease,increase,amount,costing}=useContext(ProductContext)
+  const {costing}=useContext(ProductContext)
   const [subtotal,setSubtotal]=useState(0)
+  const [cart,setCart]=useState([])
 
-  const { name, price,  company,colors ,images} = state;
+  const { name, price,  company,colors ,images} = state.detail;
+  const {amount}=state.amount
   // console.log(state.name)
   // console.log(cartProducts)
 
@@ -18,7 +20,11 @@ const Cart = () => {
     setSubtotal(amount*price)
   }, [amount])
   
+  useEffect(() => {
+    setCart([...cart,[state]])
+  }, [])
   
+  console.log(state)
 
   const cartImageList=images?.map((item)=>item.thumbnails.large.url)
 
@@ -55,9 +61,9 @@ let shippingFee=5.34
       <div className="quantity-part-upper text-center border-bottom border-1 border-secondary p-3">Quantity</div>
         <div className="quantity-part-middle d-flex align-items-center justify-content-center fw-bold fs-4 border-bottom border-1 border-secondary p-3">
         <div className="d-flex p-0 align-items-center">
-            <button className="bg-transparent border-0 fs-4 me-2 my-2" onClick={()=>decrease()}><FaMinus/></button>
+            {/* <button className="bg-transparent border-0 fs-4 me-2 my-2" onClick={()=>decrease()}><FaMinus/></button> */}
             <h2 className="m-0 mx-1 fw-bold">{amount}</h2>
-            <button className="bg-transparent border-0 fs-4 ms-2 my-2" onClick={()=>increase()}><FaPlus/></button>
+            {/* <button className="bg-transparent border-0 fs-4 ms-2 my-2" onClick={()=>increase()}><FaPlus/></button> */}
           </div>
         </div>
       </div>

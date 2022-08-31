@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { ProductContext } from "../context/ProductContext";
 
 const About = () => {
   const navigate = useNavigate();
+  const {showSidebar}=useContext(ProductContext)
+
+
   return (
     <div>
       <div className="about-header py-2">
