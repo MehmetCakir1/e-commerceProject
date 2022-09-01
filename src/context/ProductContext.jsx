@@ -20,7 +20,13 @@ const [displayStyle,setDisplayStyle]=useState(true)
 const [showSidebar,setShowSidebar]=useState(false)
 
 
+const [cart, setCart] = useState(
+  JSON.parse(localStorage.getItem('cart')) || []
+);
 
+useEffect(() => {
+  localStorage.setItem('cart', JSON.stringify(cart))
+}, [cart]);
 
 
 const getProducts=async()=>{
@@ -48,7 +54,7 @@ useEffect(() => {
 // console.log(products);
 
   return (
-    <ProductContext.Provider value={{featured,products,costing,displayStyle,setDisplayStyle,loading,setShowSidebar,showSidebar}}>
+    <ProductContext.Provider value={{featured,products,costing,displayStyle,setDisplayStyle,loading,setShowSidebar,showSidebar,cart,setCart}}>
       {children}
     </ProductContext.Provider>
   )

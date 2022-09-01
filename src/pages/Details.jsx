@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { BsStar,BsStarHalf,BsStarFill } from "react-icons/bs";
 import { TiTick } from "react-icons/ti";
 import { FaMinus,FaPlus} from "react-icons/fa";
@@ -13,16 +13,11 @@ const Details = () => {
   const [detail, setDetail] = useState([]);
   const [imgIndex,setImgIndex]=useState(0)
   const [amount,setAmount]=useState(1)
-  const [cartProducts,setCartProducts]=useState([{
-    image:"",
-    name:"",
-    color:"",
-    price:"",
-    quantity:"",
-    id:""
-  }])
+  const {cart,setCart}=useContext(ProductContext)
+  const [colorIndex, setColorIndex] = useState(0)
+  // const {state}=useLocation()
 
-  // console.log(cartProducts)
+
 
   let singleUrl = `https://course-api.com/react-store-single-product?id=${id}`;
 
@@ -38,7 +33,9 @@ const Details = () => {
   // console.log(detail);
   useEffect(() => {
     getProductDetails();
-  }, []);
+  }, []); 
+
+
 
 
 
@@ -48,16 +45,7 @@ const Details = () => {
   // console.log(newImageList)
   
 // console.log(name);
-const addToCart= ()=>{
-  setCartProducts(...cartProducts,
-  {image:newImageList[0],
-  name:name,
-  // color:"",
-  price:price,
-  quantity:amount,
-  id:id})
-  // conole.log(cartProducts);
-}
+
 
 const increase=()=>{
   if(amount<10){
@@ -68,6 +56,15 @@ const decrease = ()=>{
   if(amount>1){
     setAmount(amount-1)
   }
+}
+
+const addToCart = () =>{
+  // const id = new Date().getTime();
+  const newcart = { id: id, detail: detail, amount:amount, color:colors[colorIndex] };
+  setCart([...cart, newcart]);
+  // setDetail([])
+  // setAmount(1)
+  navigate("/cart", {state:setAmount})
 }
 
 
@@ -132,10 +129,11 @@ const decrease = ()=>{
           <div className="d-flex ">
             <span className="single-detail-color fw-bold">Colors:</span>
             {
-              colors?.map((item)=> {
+              colors?.map((item,index)=> {
                 return(
-                  <button style={{backgroundColor:item}} className="rounded-circle border-0 mx-1 px-1 text-light"><TiTick/>
-            </button>
+                  <button style={{backgroundColor:item}} key={index} className="rounded-circle border-0 mx-1 " onClick={()=>setColorIndex(index)}>
+                  {colorIndex === index ? <TiTick className='text-white m-1 fs-5'/> : <p className='default-color mx-2'><TiTick/></p>}
+                </button>
                 )
               }
               )
@@ -146,7 +144,7 @@ const decrease = ()=>{
             <h2 className="m-0 mx-1 fw-bold">{amount}</h2>
             <button className="bg-transparent border-0 fs-4 ms-2 my-2" onClick={()=>increase()}><FaPlus/></button>
           </div>
-          <button onClick={()=>{addToCart();navigate("/cart",{state:{detail:detail,amount:amount}})}} className="cartBtn border-0 p-2 rounded-2 my-3">ADD TO CART</button>
+          <button onClick={addToCart} className="cartBtn border-0 p-2 rounded-2 my-3">ADD TO CART</button>
         </div>
       </div>
     </div>

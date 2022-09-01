@@ -348,6 +348,7 @@ input[type="search"]{
     width: 90%;
 }
 
+
 /*--------------------------filtering section----------------------*/
 .category li,#company-select, #company-select option,.color-btn,#shipping{
     cursor: pointer;
@@ -547,6 +548,13 @@ input[type="search"]{
     color:#72472f !important;
 }
 
+/*-------------------------SINGLE CART-----------------------------*/
+
+.single-card-container{
+    display: grid !important;
+    grid-template-columns: 35% 20% 15% 20% 10% !important;
+}
+
 
 /*----------------------LOGIN FORM-----------------------*/
 
@@ -578,6 +586,10 @@ input[type="search"]{
     }
     .single-imgDiv img{
         width: 299.34px;
+    }
+    .length-part{
+        font-size: 13px;
+        font-weight: 600;
     }
 }
 

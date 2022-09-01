@@ -229,7 +229,7 @@ const clearAll=()=>{
                 <BsList />{" "}
               </button>
               </div>
-              <span>{newProducts.length} Products Found</span>
+              <span className="length-part">{newProducts.length} Products Found</span>
             </div>
             <div className="line-through border border-1 border-bottom border-dark col-5 bottomLine d-none d-lg-block"></div>
             <div className="col-sm-6 col-lg-3 sortDiv d-flex justify-content-sm-end p-0 m-0 ">
