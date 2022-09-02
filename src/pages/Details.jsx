@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 import { BsStar,BsStarHalf,BsStarFill } from "react-icons/bs";
 import { TiTick } from "react-icons/ti";
 import { FaMinus,FaPlus} from "react-icons/fa";
@@ -15,7 +15,6 @@ const Details = () => {
   const [amount,setAmount]=useState(1)
   const {cart,setCart}=useContext(ProductContext)
   const [colorIndex, setColorIndex] = useState(0)
-  // const {state}=useLocation()
 
 
 

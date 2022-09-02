@@ -55,6 +55,7 @@ useEffect(() => {
 }, [])
 // console.log(products);
 
+cart.sort((a,b)=>a.date-b.date)  //in order to send the cart array sorted according to their adding time
   return (
     <ProductContext.Provider value={{featured,products,costing,displayStyle,setDisplayStyle,loading,setShowSidebar,showSidebar,cart,setCart,defaultPrice}}>
       {children}

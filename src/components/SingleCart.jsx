@@ -36,8 +36,8 @@ const decreaseQuantity = (id) =>{
           </div>
           <div className="d-flex flex-column ms-1 ms-sm-3 img-name-color">
             <span className='text-capitalize product-name fw-bold'>{detail.name}</span>
-            <span className="d-flex product-color">
-              Color:{ <span style={{ backgroundColor: color }} className="rounded-2 border-0 mx-1"><p className="cart-default-color mx-2"></p></span> }
+            <span className="d-flex justify-content-start align-items-center product-color">
+              Color:{ <span style={{ backgroundColor: color }} className="rounded-3 border-0 mx-1 single-product-color d-flex justify-content-center align-items-center"></span> }
             </span>
             <span className="single-cart-price d-md-none">${costing(detail.price)}</span>
           </div>

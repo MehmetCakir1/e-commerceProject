@@ -566,9 +566,9 @@ input[type="search"]{
 .product-name,.product-color{
     color:#102a42 !important;
 }
-.cart-default-color{
-    width: 1px !important;
-    height: 1px !important;
+.single-product-color{
+    width: 15px !important;
+    height: 15px !important;
 }
 .single-cart-price{
     color: #AB7A5F;
