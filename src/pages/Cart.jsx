@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import {  useLocation, useNavigate } from "react-router-dom";
 import { ProductContext } from "../context/ProductContext";
-import { FaMinus,FaPlus,FaTrashAlt} from "react-icons/fa";
 import SingleCart from "../components/SingleCart";
 
 
@@ -9,11 +8,22 @@ const Cart = () => {
   const navigate = useNavigate();
   const {state}=useLocation()
   const {costing,cart,setCart}=useContext(ProductContext)
+  const [subTotal,setSubTotal]=useState()
 
   //shipping fee
 
   let shippingFee=5.34
 
+  const calculateTotal = ()=>{
+    let sum=0
+    cart.map((item)=>sum+=(item.amount)*(item.detail.price))
+    setSubTotal(sum)
+  }
+  useEffect(() => {
+    calculateTotal()
+  }, [cart])
+  
+// console.log(cart);
   return (
     <div>
       <div className="cart-header py-2 ">
@@ -24,15 +34,18 @@ const Cart = () => {
         </h1>
       </div>
     <main className="cart-main-part container">
-      <p>Item</p>
-      <p>Price</p>
-      <p>Quantity</p>
-      <p>Subtotal</p>
-      <p>Remove</p>
+      <div className="cart-upper-part mt-4 border-bottom border-secondary d-none d-md-grid">
+        <p className="text-center">Item</p>
+        <p className="text-center">Price</p>
+        <p className="text-center">Quantity</p>
+        <p className="text-center">Subtotal</p>
+        <p className="text-center"></p>
+      </div>
+    
       {
         cart.map((item)=>{
           return(
-            <SingleCart  key={item.id} item={item}/>
+            <SingleCart  key={item.date} item={item}/>
           )
         })
       }
@@ -42,14 +55,14 @@ const Cart = () => {
       <button className="btn rounded-3 fw-bold cart-clear-btn"onClick={()=>setCart([])}>Clear Shopping Cart</button>
     </div>
     <div className="last-part d-flex justify-content-center align-items-end flex-column container">
-      <div className="my-3 my-md-4 p-2">
-      <div className="total-order p-3 m-0 px-5">
-        <div className="fee-div p-3 m-0 ">
-          <p className="fw-bold fs-5 m-0"><span>Subtotal:</span><span>fiyatt</span></p>
+      <div className="my-3 my-md-4 p-md-2 ">
+      <div className="total-order p-3 m-0 px-md-5">
+        <div className="fee-div py-3 m-0 ">
+          <p className="fw-bold fs-5 m-0"><span>Subtotal:</span><span>${costing(subTotal)}</span></p>
           <p className="fs-5 m-0"><span>Shipping Fee:</span><span>${costing(shippingFee)}</span></p>
         </div>
-        <div className="total-fee p-3">
-        <p className="fw-bold fs-4 m-0"><span>Order Total:</span><span>fiyat g,r</span></p> </div>
+        <div className="total-fee py-3">
+        <p className="fw-bold fs-4 m-0"><span>Order Total:</span><span>${costing(subTotal+shippingFee)}</span></p> </div>
       </div>
       <button className="cart-login-btn btn rounded-3 fw-bold w-100 my-2" onClick={()=>navigate("/login")}>LOGIN</button>
       </div>

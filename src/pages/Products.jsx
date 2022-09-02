@@ -11,19 +11,16 @@ const _ = require('underscore');//! UNDERSCORE********** _.intersection([][][])
 
 const Products = () => {
   const navigate = useNavigate();
-  const {products,costing,displayStyle, setDisplayStyle,loading}=useContext(ProductContext)
+  const {products,costing,displayStyle, setDisplayStyle,loading,defaultPrice}=useContext(ProductContext)
   const [newProducts,setNewProducts]=useState(products)
-  let highestPrice=products?.map((item)=>(item.price))
-  const defaultPrice = Math.max(...highestPrice)
-  // let defaultPrice=309999
-  const [price,setPrice]=useState(defaultPrice || 30999)
+  const [price,setPrice]=useState(defaultPrice)
   const [category,setCategory]=useState("all")
   const [company,setCompany]=useState("all")
   const [newColor,setNewColor]=useState("all")
   const [tickColor,setTickColor]=useState("all")
   const [sortedProduct, setSortedProduct] = useState("Price(Lowest)")
   const [checked,setChecked]=useState(false)
-  // const [searchTerm,setSearchTerm]=useState("")
+  const [searchTerm,setSearchTerm]=useState("")
   
 
 
@@ -37,17 +34,17 @@ const Products = () => {
   const colors=[...new Set(tempColors)]
   // console.log(colors);
 
-  useEffect(()=>{
-    if(!loading){
-setNewProducts(products)
-// console.log(products);
-// console.log("first")
+  useEffect(() => {
+    if (products.length>0 && !loading) {
+      setNewProducts(products);
+      setPrice(defaultPrice)
+      // console.log("loading")
     }
-  },[])
+  }, [products]);
 
   useEffect(() => {
     filterItems();
-  },[category, company,price,newColor,checked]);
+  },[category, company,price,newColor,checked,searchTerm]);
   
   
   useEffect(() => {
@@ -66,9 +63,9 @@ const filterItems = ()=>{
   let tempColor;
   let tempPrice;
   let tempChecked;
-
+  let tempSearch;
   
-  if (category === "all" && company === "all" && newColor=== "all" && price==defaultPrice  && checked===false) {
+  if (category === "all" && company === "all" && newColor=== "all" && price==defaultPrice  && checked===false && searchTerm=="") {
     setNewProducts(products);
   } else{
 
@@ -97,7 +94,12 @@ const filterItems = ()=>{
     }else{
       tempChecked = products
     }
-    setNewProducts(_.intersection(tempCategory, tempCompany,tempPrice,tempColor,tempChecked))
+    if(searchTerm!==""){
+      tempSearch=products?.filter((item)=>item.name.includes(searchTerm))
+    }else{
+      tempSearch = products
+    }
+    setNewProducts(_.intersection(tempCategory, tempCompany,tempPrice,tempColor,tempChecked,tempSearch))
   }
 }
 
@@ -148,12 +150,12 @@ const clearAll=()=>{
         </h1>
       </div>
       <main className="container row m-auto mt-3 mt-md-5 p-0">
-        <div className="filteringDiv col-sm-4 col-md-3 p-0 m-0">
+        <div className="filteringDiv col-sm-4 col-md-3 ps-4 ps-sm-0 m-0">
           <form>
 
             {/*--------------------------- SEARCH INPUT------------- */}
 
-            <input type="search" placeholder="Search"  className="px-1"/>
+            <input type="search" placeholder="Search" className="px-1" value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value.toLowerCase())}/>
           <ul className="category p-0 mt-3">
 
           {/* ----------------CATEGORY----------------- */}
@@ -184,10 +186,10 @@ const clearAll=()=>{
 
           <h6 className="mt-3 fw-bold">Colors</h6>
           <div className="d-flex">
-            <span style={{cursor:"pointer"}} className="border-0 bg-transparent" onClick={()=>{setNewColor("all"); setTickColor(false)}}>All</span>
+            <span style={{cursor:"pointer"}} className="border-0 bg-transparent d-flex align-items-center pe-1" onClick={()=>{setNewColor("all"); setTickColor(false)}}>All</span>
                {colors.map((item, tickIndex) => {
               return (
-                <span style={{backgroundColor:item}} key={tickIndex} className="rounded-circle border-0 mx-1 color-btn" onClick={()=>{setTickColor(tickIndex); setNewColor(item)}}>
+                <span style={{backgroundColor:item}} key={tickIndex} className="rounded-circle border-0 mx-1 color-btn d-flex align-items-center justify-content-center" onClick={()=>{setTickColor(tickIndex); setNewColor(item)}}>
                   {tickColor === tickIndex ? <TiTick className='text-white m-1 fs-5'/> : <TiTick className='product-default-color m-1 fs-5'/>}
                 </span>
               );
@@ -198,7 +200,7 @@ const clearAll=()=>{
 
           <h6 className="mt-3 fw-bold">Price</h6>
           <p className="price">${costing(price)}</p>
-          <input type="range" name="price" min="0" max={defaultPrice} value={price} onChange={(e)=>setPrice(e.target.value)} style={{cursor:"pointer"}}/>
+          <input className="range-input" type="range" name="price" min="0" max={defaultPrice} value={price} onChange={(e)=>setPrice(e.target.value)} style={{cursor:"pointer"}}/>
 
             {/*---------------- FREE SHIPPING---------------- */}
 
@@ -220,7 +222,7 @@ const clearAll=()=>{
 
         <div className="main-products col-sm-8 col-md-9 m-0 mt-3 mt-sm-0">
           <div className="main-products-upper d-flex align-items-sm-center  justify-content-sm-center justify-content-md-between flex-column flex-sm-row row p-0 m-0 ">
-            <div className="upper-btnDiv col-sm-6 col-lg-4 d-flex align-items-sm-center justify-content-start justify-content-sm-between flex-column flex-sm-row p-0 m-0">
+            <div className="upper-btnDiv col-sm-6 col-lg-4 d-flex align-items-md-center justify-content-start justify-content-md-between flex-column flex-md-row ps-2 ps-sm-0 m-0">
               <div className="products-btnDiv d-flex align-items-center gap-1 p-0 m-0">
                  <button className= {`${displayStyle && "text-light bg-dark"} d-flex align-items-center border-1 rounded-1 fs-4`} onClick={()=>setDisplayStyle(true)}>
                 <BiGridSmall />{" "}
@@ -231,13 +233,13 @@ const clearAll=()=>{
               </div>
               <span className="length-part">{newProducts.length} Products Found</span>
             </div>
-            <div className="line-through border border-1 border-bottom border-dark col-5 bottomLine d-none d-lg-block"></div>
-            <div className="col-sm-6 col-lg-3 sortDiv d-flex justify-content-sm-end p-0 m-0 ">
-              <span className="me-2">Sort By</span>
+            <div className="line-through border border-1 border-bottom border-dark col-4 bottomLine d-none d-lg-block"></div>
+            <div className="col-sm-6 col-lg-4  sortDiv d-flex  justify-content-sm-end ps-2 ps-sm-0 m-0 ">
+              <span className="me-2 me-sm-0 ">Sort By</span>
 
               {/* -----------------------SORTING PRODUCTS-------------- */}
 
-              <select name="select" id="select" className="border-0 bg-transparent" style={{cursor:"pointer"}} onChange={(e)=>setSortedProduct(e.target.value)}>
+              <select name="select" id="select" className="border-0 bg-transparent m-0 p-0" style={{cursor:"pointer"}} onChange={(e)=>setSortedProduct(e.target.value)}>
                <option value="Price(Lowest)">Price(Lowest)</option>
                 <option value="Price(Highest)">Price(Highest)</option>
                 <option value="Name(A-Z)">Name(A-Z)</option>
@@ -245,9 +247,9 @@ const clearAll=()=>{
               </select>
             </div>
           </div>
-          <div className="main-products-bottom row m-auto">
+          <div className="main-products-bottom row m-auto mb-md-5">
             {
-              newProducts?.map((product,index)=>{
+              newProducts?.map((product)=>{
                 return(
                   <SingleProduct key={product.id} product={product} displayStyle={displayStyle}/>
                 )

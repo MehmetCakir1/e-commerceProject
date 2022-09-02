@@ -57,10 +57,9 @@ const decrease = ()=>{
     setAmount(amount-1)
   }
 }
-
 const addToCart = () =>{
-  // const id = new Date().getTime();
-  const newcart = { id: id, detail: detail, amount:amount, color:colors[colorIndex] };
+  const date = new Date().getTime();
+  const newcart = { id: id, detail: detail, amount:amount, color:colors[colorIndex],date:date };
   setCart([...cart, newcart]);
   // setDetail([])
   // setAmount(1)
@@ -131,8 +130,8 @@ const addToCart = () =>{
             {
               colors?.map((item,index)=> {
                 return(
-                  <button style={{backgroundColor:item}} key={index} className="rounded-circle border-0 mx-1 " onClick={()=>setColorIndex(index)}>
-                  {colorIndex === index ? <TiTick className='text-white m-1 fs-5'/> : <p className='default-color mx-2'><TiTick/></p>}
+                  <button style={{backgroundColor:item}} key={index} className="rounded-circle border-0 mx-1 detail-color-btn" onClick={()=>setColorIndex(index)}>
+                  {colorIndex === index ? <TiTick className='text-white m-1 fs-5'/> : <p className='mx-2' style={{color:item}}><TiTick/></p>}
                 </button>
                 )
               }
