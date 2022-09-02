@@ -57,11 +57,27 @@ const decrease = ()=>{
   }
 }
 const addToCart = () =>{
-  const date = new Date().getTime();
-  const newcart = { id: id, detail: detail, amount:amount, color:colors[colorIndex],date:date };
-  setCart([...cart, newcart]);
-  // setDetail([])
-  // setAmount(1)
+  let oldAmount;
+    const date = new Date().getTime();
+    let newcart = { id: date, detail: detail, amount:amount, color:colors[colorIndex],date:date };
+    cart.filter((item)=>console.log(item.amount))
+    let tempIdArr=cart.filter((item)=>item.detail.name===newcart.detail.name)
+    if(tempIdArr.length>0){
+      oldAmount=tempIdArr[0].amount
+      let tempColorArr=tempIdArr.filter((item)=>item.color===newcart.color)
+      if(tempColorArr.length>0){
+        tempColorArr.map((item)=>item.amount=oldAmount)
+        newcart={...newcart,amount:(oldAmount+newcart.amount>10) ? 10 : oldAmount+newcart.amount} 
+        cart.splice(cart.indexOf(tempColorArr[0]),1)
+        setCart([...cart, newcart]);
+      }else{
+        setCart([...cart, newcart]);
+      }
+    }
+    else{
+      
+    }
+  
   navigate("/cart", {state:setAmount})
 }
 

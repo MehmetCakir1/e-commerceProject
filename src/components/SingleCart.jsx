@@ -27,7 +27,6 @@ const decreaseQuantity = (id) =>{
   let testcart=cart.filter((item)=>item.id!==id)
   setCart([...testcart, ...newCart])
     } }
-
   return (
         <div className="container single-cart-container m-0 p-0 py-3 my-2 border-bottom border-bottom-1 border-secondary d-flex justify-content-between align-items-center">
           <div className="d-flex justify-content-start align-items-center general-img-div">
