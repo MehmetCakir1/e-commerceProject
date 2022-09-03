@@ -77,7 +77,7 @@ const addToCart = () =>{
     else{
       
     }
-  
+    setCart([...cart, newcart]);
   navigate("/cart", {state:setAmount})
 }
 
