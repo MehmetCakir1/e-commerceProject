@@ -1,6 +1,6 @@
 [Clik here to see the project](https://e-commerce-project-liart.vercel.app/)
 
-###The project has nootbeen completed yet###
+***The project has not been completed yet***
 
 - __React Hooks__ <br>
 - __Props/States/Components__<br>
@@ -23,4 +23,4 @@
 - __It is not allowed to add the same item with the same color.If you try,the amount of the item in your cart will increase__<br/>
 - __You can add the same item with different color even though there is already the same item in your cart__<br/>
 
-<div align="center"><img src="https://github.com/MehmetCakir1/blogAppWithFirebase/blob/master/blogapp.PNG">
+<!--<div align="center"><img src="https://github.com/MehmetCakir1/blogAppWithFirebase/blob/master/blogapp.PNG">-->
