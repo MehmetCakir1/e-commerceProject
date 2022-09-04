@@ -667,4 +667,10 @@ input[type="search"]{
     }
 }
 
+.swiper-button-prev {
+    transform: translate(-50%,-50%);
+}
 
+.swiper-button-next {
+    transform: translate(50%,-50%);
+}
