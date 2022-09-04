@@ -5,6 +5,7 @@ import { BsStar,BsStarHalf,BsStarFill } from "react-icons/bs";
 import { TiTick } from "react-icons/ti";
 import { FaMinus,FaPlus} from "react-icons/fa";
 import { ProductContext } from "../context/ProductContext";
+import { toastErrorNotify } from "../helpers/toastify";
 
 
 const Details = () => {
@@ -57,7 +58,8 @@ const decrease = ()=>{
   }
 }
 const addToCart = () =>{
-  let oldAmount;
+  if(stock>=1){
+    let oldAmount;
     const date = new Date().getTime();
     let newcart = { id: date, detail: detail, amount:amount, color:colors[colorIndex],date:date };
     cart.filter((item)=>console.log(item.amount))
@@ -67,7 +69,7 @@ const addToCart = () =>{
       let tempColorArr=tempIdArr.filter((item)=>item.color===newcart.color)
       if(tempColorArr.length>0){
         tempColorArr.map((item)=>item.amount=oldAmount)
-        newcart={...newcart,amount:(oldAmount+newcart.amount>10) ? 10 : oldAmount+newcart.amount} 
+        newcart={...newcart,amount:(oldAmount+newcart.amount<stock) ? oldAmount+newcart.amount<10 ? oldAmount+newcart.amount : 10: stock} 
         cart.splice(cart.indexOf(tempColorArr[0]),1)
         setCart([...cart, newcart]);
       }else{
@@ -79,6 +81,9 @@ const addToCart = () =>{
     }
     setCart([...cart, newcart]);
   navigate("/cart", {state:setAmount})
+  }else{
+    toastErrorNotify("Out of Stock.")
+  }
 }
 
 
