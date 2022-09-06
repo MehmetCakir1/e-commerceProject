@@ -65,9 +65,9 @@ const addToCart = () =>{
     cart.filter((item)=>console.log(item.amount))
     let tempIdArr=cart.filter((item)=>item.detail.name===newcart.detail.name)
     if(tempIdArr.length>0){
-      oldAmount=tempIdArr[0].amount
       let tempColorArr=tempIdArr.filter((item)=>item.color===newcart.color)
       if(tempColorArr.length>0){
+        oldAmount=tempColorArr[0].amount
         tempColorArr.map((item)=>item.amount=oldAmount)
         newcart={...newcart,amount:(oldAmount+newcart.amount<stock) ? oldAmount+newcart.amount<10 ? oldAmount+newcart.amount : 10: stock} 
         cart.splice(cart.indexOf(tempColorArr[0]),1)
