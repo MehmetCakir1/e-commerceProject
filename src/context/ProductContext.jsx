@@ -12,7 +12,6 @@ export const ProductContext=createContext()
 
 
 const ProductContextProvider = ({children}) => {
-
 const [featured,setFeatured]=useState([])
 const [products,setProducts]=useState([])
 const [loading,setLoading]=useState(false)
@@ -24,10 +23,18 @@ const [defaultPrice, setDefaultPrice] = useState([])
 const [cart, setCart] = useState(
   JSON.parse(localStorage.getItem('cart')) || []
 );
+const [user, setUser] = useState(
+  JSON.parse(localStorage.getItem('user')) 
+);
+
 
 useEffect(() => {
   localStorage.setItem('cart', JSON.stringify(cart))
 }, [cart]);
+
+useEffect(() => {
+  localStorage.setItem('user', JSON.stringify(user))
+}, [user]);
 
 
 const getProducts=async()=>{
@@ -57,7 +64,7 @@ useEffect(() => {
 
 cart.sort((a,b)=>a.date-b.date)  //in order to send the cart array sorted according to their adding time
   return (
-    <ProductContext.Provider value={{featured,products,costing,displayStyle,setDisplayStyle,loading,setShowSidebar,showSidebar,cart,setCart,defaultPrice}}>
+    <ProductContext.Provider value={{featured,products,costing,displayStyle,setDisplayStyle,loading,setShowSidebar,showSidebar,cart,setCart,defaultPrice,setUser,user}}>
       {children}
     </ProductContext.Provider>
   )

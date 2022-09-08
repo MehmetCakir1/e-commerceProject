@@ -1,14 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import {  useLocation, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { ProductContext } from "../context/ProductContext";
 import SingleCart from "../components/SingleCart";
+import { toastThanksNotify, toastWarnNotify } from "../helpers/toastify";
+
 
 
 const Cart = () => {
   const navigate = useNavigate();
-  const {state}=useLocation()
-  const {costing,cart,setCart}=useContext(ProductContext)
+  const {costing,cart,setCart,user}=useContext(ProductContext)
   const [subTotal,setSubTotal]=useState()
+
 
   //shipping fee
 
@@ -23,9 +25,19 @@ const Cart = () => {
     calculateTotal()
   }, [cart])
   
+const buying=()=>{
+if(cart.length==0){
+  toastWarnNotify("Your Cart Is Empty!")
+}else{
+  setCart([])
+  toastThanksNotify("Order complete!Thank you so much for choosing us!")
+}
+}
+
+
 // console.log(cart);
   return (
-    <div>
+    <div className="cart-div">
       <div className="cart-header py-2 ">
         <h1 className="cart-h1 p-3 container">
           <span onClick={() => navigate("/")}>Home</span>
@@ -41,7 +53,6 @@ const Cart = () => {
         <p className="text-center">Subtotal</p>
         <p className="text-center"></p>
       </div>
-    
       {
         cart.map((item)=>{
           return(
@@ -62,9 +73,16 @@ const Cart = () => {
           <p className="fs-5 m-0"><span>Shipping Fee:</span><span>${costing(shippingFee)}</span></p>
         </div>
         <div className="total-fee py-3">
-        <p className="fw-bold fs-4 m-0"><span>Order Total:</span><span>${costing(subTotal+shippingFee)}</span></p> </div>
+        <p className="fw-bold fs-4 m-0"><span>Order Total:</span><span>${!subTotal ? costing(subTotal) : costing(subTotal+shippingFee)}</span></p> </div>
       </div>
-      <button className="cart-login-btn btn rounded-3 fw-bold w-100 my-2" onClick={()=>navigate("/login")}>LOGIN</button>
+      {
+        user ? (
+          <button className="cart-login-btn btn rounded-3 fw-bold w-100 my-2" onClick={buying}>BUY</button>
+        ):
+        (
+          <button className="cart-login-btn btn rounded-3 fw-bold w-100 my-2" onClick={()=>navigate("/login")}>LOGIN</button>
+        )
+      }
       </div>
         </div>
     </div>

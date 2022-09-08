@@ -30,4 +30,17 @@ export const toastErrorNotify = (msg) => {
     progress: undefined,
   });
 };
+export const toastThanksNotify = (msg) => {
+  toast.info(msg, {
+  icon:"😎",
+  position: "bottom-left",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  });
+};
+
 // import "react-toastify/dist/ReactToastify.css";

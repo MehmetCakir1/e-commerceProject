@@ -135,6 +135,7 @@ const clearAll=()=>{
   setTickColor(false)
   setPrice(defaultPrice)
   setChecked(false)
+  setSearchTerm("")
 }
 
 

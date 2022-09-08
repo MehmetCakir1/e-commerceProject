@@ -561,7 +561,9 @@ input[type="search"]{
 }
 
 /*-------------------------SINGLE CART-----------------------------*/
-
+.cart-div{
+   min-height:calc(100vh-155px)
+}
 
 .product-name,.product-color{
     color:#102a42 !important;
@@ -577,9 +579,10 @@ input[type="search"]{
     color:#102a42 !important;
 }
 
-
 /*----------------------LOGIN FORM-----------------------*/
-
+.login-div{
+   min-height:calc(100vh-155px)
+}
 
 .login-form{
     max-width: 30rem;
@@ -667,10 +670,3 @@ input[type="search"]{
     }
 }
 
-.swiper-button-prev {
-    transform: translate(-50%,-50%);
-}
-
-.swiper-button-next {
-    transform: translate(50%,-50%);
-}
