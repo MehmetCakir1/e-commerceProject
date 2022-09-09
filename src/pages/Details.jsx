@@ -62,7 +62,7 @@ const addToCart = () =>{
     let oldAmount;
     const date = new Date().getTime();
     let newcart = { id: date, detail: detail, amount:amount, color:colors[colorIndex],date:date };
-    cart.filter((item)=>console.log(item.amount))
+    // cart.filter((item)=>console.log(item.amount))
     let tempIdArr=cart.filter((item)=>item.detail.name===newcart.detail.name)
     if(tempIdArr.length>0){
       let tempColorArr=tempIdArr.filter((item)=>item.color===newcart.color)

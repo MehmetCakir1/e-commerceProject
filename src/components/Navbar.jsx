@@ -5,7 +5,7 @@ import Sidebar from "./Sidebar";
 import { ProductContext } from "../context/ProductContext";
 
 const Navbar = () => {
- const {showSidebar,setShowSidebar,cart,user,setUser}=useContext(ProductContext)
+ const {showSidebar,setShowSidebar,cart,user,setUser,setCart}=useContext(ProductContext)
 
   return (
     <div>
@@ -40,7 +40,7 @@ const Navbar = () => {
           ):(
               <Link to="login" className="text-dark text-decoration-none">
        <div className="login d-flex justify-content-between align-items-center px-2 mx-1">
-          <p className="fs-4 p-0 m-0" onClick={()=>setUser("")}>Log Out</p>
+          <p className="fs-4 p-0 m-0" onClick={()=>{setUser("");setCart([])}}>Log Out</p>
         </div></Link>
           )
         }
