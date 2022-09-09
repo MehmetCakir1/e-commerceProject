@@ -356,7 +356,7 @@ input[type="search"]{
 
 
 /*--------------------------filtering section----------------------*/
-.category li,#company-select, #company-select option,.color-btn,#shipping{
+.category li span,#company-select, #company-select option,.color-btn,#shipping{
     cursor: pointer;
 }
 

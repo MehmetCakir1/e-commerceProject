@@ -160,7 +160,7 @@ const clearAll=()=>{
             {
               categories.map((item,index)=>{
                 return(
-                  <li key={index} className="text-capitalize list-unstyled" onClick={(e)=>setCategory(e.target.innerText.toLowerCase())} >{item}</li>
+                  <li key={index} className="text-capitalize list-unstyled" ><span onClick={(e)=>setCategory(e.target.innerText.toLowerCase())}>{item}</span> </li>
                 )
               })
             }
