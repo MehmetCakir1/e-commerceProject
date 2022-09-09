@@ -51,11 +51,6 @@ const Products = () => {
   sortProducts()
   }, [sortedProduct]);
   
-  useEffect(() => {
-  sortProducts()
-  }, [sortedProduct]);
-  
-
 
 const filterItems = ()=>{
   let tempCategory;
