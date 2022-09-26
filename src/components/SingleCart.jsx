@@ -5,7 +5,7 @@ import { ProductContext } from "../context/ProductContext";
 
 const SingleCart = ({item}) => {
 const {id,amount,detail,color,date}=item;
-const {costing,cart,setCart}=useContext(ProductContext)
+const {formatPrice,cart,setCart}=useContext(ProductContext)
 
 const removeItem = (date) => {
   // console.log(id);
@@ -38,11 +38,11 @@ const decreaseQuantity = (id) =>{
             <span className="d-flex justify-content-start align-items-center product-color">
               Color:{ <span style={{ backgroundColor: color }} className="rounded-3 border-0 mx-1 single-product-color d-flex justify-content-center align-items-center"></span> }
             </span>
-            <span className="single-cart-price d-md-none">${costing(detail.price)}</span>
+            <span className="single-cart-price d-md-none">{formatPrice(detail.price)}</span>
           </div>
           </div>
           <div className="d-none d-md-flex justify-content-center align-items-center">
-            <span className="single-cart-price">${costing(detail.price)}</span>
+            <span className="single-cart-price">{formatPrice(detail.price)}</span>
           </div>
           <div className='d-flex  justify-content-center align-items-center'>
             <button className='border-0 fs-6 minus' onClick={()=>decreaseQuantity(id)}><FaMinus/></button>
@@ -50,7 +50,7 @@ const decreaseQuantity = (id) =>{
             <button className='border-0 fs-6 plus' onClick={()=>increaseQuantity(id)}><FaPlus/></button>
           </div>
           <div className="d-none d-md-flex justify-content-center align-items-center single-cart-subtotal">
-          ${costing(amount*detail.price)}
+          {formatPrice(amount*detail.price)}
           </div>
           <div className="d-flex justify-content-center align-items-center">
           <button className='border-0 fs-3 bg-transparent text-danger d-flex justify-content-center align-items-center' onClick={()=>removeItem(date)}><FaTrashAlt/></button>
