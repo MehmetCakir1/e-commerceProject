@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TiZoomOutline } from "react-icons/ti";
+import { useContext } from "react";
+import { ProductContext } from "../context/ProductContext";
 
 const SingleProduct = ({ product, displayStyle }) => {
   const { id, name, price, image, description } = product;
   const [zoom, setZoom] = useState(false);
+  const {formatPrice}=useContext(ProductContext)
   const navigate = useNavigate();
   return (
     <>
@@ -31,7 +34,7 @@ const SingleProduct = ({ product, displayStyle }) => {
             <div className="d-flex align-items-center justify-content-between mt-3">
               <span className="text-capitalize">{name}</span>
               <span>
-                ${String(price).slice(0, 3) + "." + String(price).slice(3)}
+                {formatPrice(price)}
               </span>
             </div>
           </div>

@@ -53,8 +53,12 @@ const getProducts=async()=>{
   }
 }
 
-const costing= (price) => {
-  return parseFloat(price).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+const formatPrice=(number)=>{
+  const newNum=Intl.NumberFormat("en-US",{
+    style:"currency",
+    currency:"USD"
+  }).format(number/100)
+  return newNum
 }
 
 useEffect(() => {
@@ -64,7 +68,7 @@ useEffect(() => {
 
 cart.sort((a,b)=>a.date-b.date)  //in order to send the cart array sorted according to their adding time
   return (
-    <ProductContext.Provider value={{featured,products,costing,displayStyle,setDisplayStyle,loading,setShowSidebar,showSidebar,cart,setCart,defaultPrice,setUser,user}}>
+    <ProductContext.Provider value={{featured,products,formatPrice,displayStyle,setDisplayStyle,loading,setShowSidebar,showSidebar,cart,setCart,defaultPrice,setUser,user}}>
       {children}
     </ProductContext.Provider>
   )

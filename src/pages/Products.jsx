@@ -11,7 +11,7 @@ const _ = require('underscore');//! UNDERSCORE********** _.intersection([][][])
 
 const Products = () => {
   const navigate = useNavigate();
-  const {products,costing,displayStyle, setDisplayStyle,loading,defaultPrice}=useContext(ProductContext)
+  const {products,formatPrice,displayStyle, setDisplayStyle,loading,defaultPrice}=useContext(ProductContext)
   const [newProducts,setNewProducts]=useState(products)
   const [price,setPrice]=useState(defaultPrice)
   const [category,setCategory]=useState("all")
@@ -28,7 +28,6 @@ const Products = () => {
   const categories= ["All",...new Set(products.map((item)=>item.category))]
   const companyList=["All",...new Set(products.map((item)=>item.company))]
   const tempColors=[]
-  // console.log([...new Set(products.map((item)=>item.category))])
   products.map((item)=>item.colors.map((color2)=>tempColors.push(color2)))
   // console.log(products);
   const colors=[...new Set(tempColors)]
@@ -44,7 +43,7 @@ const Products = () => {
 
   useEffect(() => {
     filterItems();
-  },[category, company,price,newColor,checked,searchTerm]);
+  },[category, company,price,newColor,checked,searchTerm,sortedProduct]);
   
   
   useEffect(() => {
@@ -94,7 +93,31 @@ const filterItems = ()=>{
     }else{
       tempSearch = products
     }
-    setNewProducts(_.intersection(tempCategory, tempCompany,tempPrice,tempColor,tempChecked,tempSearch))
+    let result = _.intersection(tempCategory, tempCompany, tempColor, tempPrice, tempSearch, tempChecked)
+    // setNewProducts(_.intersection(tempCategory, tempCompany,tempPrice,tempColor,tempChecked,tempSearch))
+    let empty = [];
+      let newStatus;
+      // console.log(sortedProduct);
+      if (sortedProduct === "Price(Lowest)") {
+        newStatus = empty.concat(result);
+        setNewProducts(newStatus?.sort((a, b) => a.price - b.price));
+        empty = [];
+      }
+      if (sortedProduct === "Price(Highest)") {
+        newStatus = empty.concat(result);
+        setNewProducts(newStatus?.sort((a, b) => b.price - a.price));
+        empty = [];
+      }
+      if (sortedProduct === "Name(A-Z)") {
+        newStatus = empty.concat(result);
+        setNewProducts(_.sortBy(newStatus, "name"));
+        empty = [];
+      }
+      if (sortedProduct === "Name(Z-A)") {
+        newStatus = empty.concat(result);
+        setNewProducts(_.sortBy(newStatus, "name").reverse());
+        empty = [];
+      }
   }
 }
 
@@ -195,7 +218,7 @@ const clearAll=()=>{
             {/*-------------------- PRICE----------------------- */}
 
           <h6 className="mt-3 fw-bold">Price</h6>
-          <p className="price">${costing(price)}</p>
+          <p className="price">{formatPrice(price)}</p>
           <input className="range-input" type="range" name="price" min="0" max={defaultPrice} value={price} onChange={(e)=>setPrice(e.target.value)} style={{cursor:"pointer"}}/>
 
             {/*---------------- FREE SHIPPING---------------- */}
