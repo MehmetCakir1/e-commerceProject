@@ -8,7 +8,7 @@ import { toastThanksNotify, toastWarnNotify } from "../helpers/toastify";
 
 const Cart = () => {
   const navigate = useNavigate();
-  const {costing,cart,setCart,user}=useContext(ProductContext)
+  const {formatPrice,cart,setCart,user}=useContext(ProductContext)
   const [subTotal,setSubTotal]=useState()
 
 
@@ -69,11 +69,11 @@ if(cart.length==0){
       <div className="my-3 my-md-4 p-md-2 ">
       <div className="total-order p-3 m-0 px-md-5">
         <div className="fee-div py-3 m-0 ">
-          <p className="fw-bold fs-5 m-0"><span>Subtotal:</span><span>${costing(subTotal)}</span></p>
-          <p className="fs-5 m-0"><span>Shipping Fee:</span><span>${costing(shippingFee)}</span></p>
+          <p className="fw-bold fs-5 m-0"><span>Subtotal:</span><span>{formatPrice(subTotal)}</span></p>
+          <p className="fs-5 m-0"><span>Shipping Fee:</span><span>{formatPrice(shippingFee)}</span></p>
         </div>
         <div className="total-fee py-3">
-        <p className="fw-bold fs-4 m-0"><span>Order Total:</span><span>${!subTotal ? costing(subTotal) : costing(subTotal+shippingFee)}</span></p> </div>
+        <p className="fw-bold fs-4 m-0"><span>Order Total:</span><span>{!subTotal ? formatPrice(subTotal) : formatPrice(subTotal+shippingFee)}</span></p> </div>
       </div>
       {
         user ? (
