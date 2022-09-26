@@ -14,7 +14,7 @@ const Cart = () => {
 
   //shipping fee
 
-  let shippingFee=5.34
+  let shippingFee=534
 
   const calculateTotal = ()=>{
     let sum=0
